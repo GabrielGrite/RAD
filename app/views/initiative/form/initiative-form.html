@@ -1,60 +1,54 @@
 {% extends "base/base_sistema.html" %}
 {% block subtitulo %} Iniciativas {% endblock%}
-    {% block conteudo %}
-    <section class="content">
-      <div class="row">
-        <!-- left column -->
-        <div class="col-md-12">
-          <!-- general form elements -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Cadastro de iniciativa</h3>
-            </div><!-- /.box-header -->
-            <!-- form start -->
-            <form class="row g-3" action="{{url_for('initiative_register')}}" method="POST" >
-              <div class="box-body">
-               
-              <div class="col-md-10">
-                  {% with messages = get_flashed_messages()%}
-                    {% if messages %}
-                        {% for message in messages %}
-                        <div class="alert alert-success">
-                          {{message}}                                                         
-                        </div>                                 
-                        {% endfor %}
-                     {% endif %}
-                  {% endwith %}
-              </div>              
-              
-              <div class="col-md-4">
-                <label class="form-label">*Usuario</label>
-                <input class="form-control" type="text" name="nome" id="nome">
+{% block conteudo %}
+<section class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Cadastro de iniciativa</h3>
+        </div>
+        <form class="row g-3" action="{{url_for('initiative_register')}}" method="POST">
+          <div class="box-body">
+
+            <div class="col-md-10">
+              {% with messages = get_flashed_messages()%}
+              {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-success">
+                {{message}}
               </div>
-              <div class="col-md-4">
-                <label class="form-label">*Nome da iniciativa</label>
-                <input class="form-control" type="text" name="nome_iniciativa" id="nome_iniciativa">
-              </div>
-              <div class="col-md-4">
-                <label class="form-label" >Data de inicio</label>
-                <input class="form-control" type="datetime-local" id="data_inicio" name="data_inicio">
-              </div>
-              <div class="col-md-4">
-                <label class="form-label" >Data de fim</label>
-                <input class="form-control" type="datetime-local" id="data_fim" name="data_fim">
-              </div>  
-              <div class="col-md-12">
-                <br>
-              </div>                             
-              <div class="col-md-12">
-                <button class="btn btn-primary" type="submit">Cadastrar</button>
-              </div>
-                       
+              {% endfor %}
+              {% endif %}
+              {% endwith %}
             </div>
-            
-            </form>                 
-          </div><!-- /.box -->         
-        </div><!--/.col (left) -->
-        <!-- right column -->        
-      </div>   <!-- /.row -->
-    </section><!-- /.content -->
-    {% endblock %}
+
+            <div class="col-md-4">
+              <label class="form-label">*Usuario</label>
+              <input class="form-control" type="text" name="nome" id="nome">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">*Nome da iniciativa</label>
+              <input class="form-control" type="text" name="nome_iniciativa" id="nome_iniciativa">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Data de inicio</label>
+              <input class="form-control" type="datetime-local" id="data_inicio" name="data_inicio">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Data de fim</label>
+              <input class="form-control" type="datetime-local" id="data_fim" name="data_fim">
+            </div>
+            <div class="col-md-12">
+              <br>
+            </div>
+            <div class="col-md-12">
+              <button class="btn btn-primary" type="submit">Cadastrar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div> 
+</section>
+{% endblock %}
