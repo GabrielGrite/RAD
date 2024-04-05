@@ -1,0 +1,38 @@
+{% extends "base/base_sistema.html" %}
+{% block subtitulo %} Iniciativas {% endblock %}
+{% block conteudo %}
+<section class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Cadastro de iniciativas</h3>
+          <form class="row g-3" action="{{url_for('update_initiative', id=initiative.id)}}" method="POST">
+            <div class="box-body">
+              <div class="col-md-4">
+                <label class="form-label">Nome</label>
+                <input class="form-control" type="text" name="nome" id="nome" value="{{initiative.nome}}">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Data de Início</label>
+                <input class="form-control" type="datetime-local" name="data_inicio"
+                  value="{{initiative.data_inicio.strftime('%Y-%m-%dT%H:%M')}}">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Data de Fim</label>
+                <input class="form-control" type="datetime-local" name="data_fim"
+                  value="{{initiative.data_fim.strftime('%Y-%m-%dT%H:%M')}}">
+              </div>
+              <div class="col-md-12">
+                <br>
+              </div>
+              <div class="col-md-12">
+                <button class="btn btn-primary" type="submit">Alterar</button>
+              </div>
+
+            </div>
+
+          </form>
+        </div>
+      </div>
+      {% endblock %}
