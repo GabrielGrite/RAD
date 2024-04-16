@@ -7,20 +7,20 @@
       <div class="box box-primary">
         <div class="box-header with-border">
           <h3 class="box-title">Cadastro de usuarios</h3>
-          <form class="row g-3" action="{{url_for('update_user',id=user.id)}}" method="POST">
+          <form class="row g-3" action="{{url_for('update_user',id=user.Id)}}" method="POST">
             <div class="box-body">
               <div class="col-md-4">
                 <label class="form-label">Nome</label>
-                <input class="form-control" type="text" name="nome" id="nome" value="{{user.nome}}">
+                <input class="form-control" type="text" name="nome" id="nome" value="{{user.Name}}">
               </div>
               <div class="col-md-4">
                 <label class="form-label">E-mail</label>
-                <input class="form-control" type="email" name="email" value="{{user.email}}">
+                <input class="form-control" type="email" name="email" value="{{user.Email}}">
               </div>
               <div class="col-md-4">
 
                 <label class="form-label">Senha</label>
-                <input class="form-control" type="password" name="senha" value="{{user.senha}}">
+                <input class="form-control" type="password" name="senha" value="{{user.Password}}">
               </div>
               <div class="col-md-12">
                 <br>

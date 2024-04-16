@@ -36,12 +36,12 @@
               <tbody>
                 {% for users in usuarios %}
                   <tr>
-                    <td>{{users.id}}</td>
-                    <td>{{users.email}}</td>
-                    <td>{{users.nome}}</td>
-                    <td>{{users.data.strftime('%d/%m/%Y')}}</td>
-                    <td><a href="/update/user/{{users.id}}"><span class="label label-success"><i class="fa-solid fa-pencil"></i> Alterar</span></a></td>
-                    <td><a href="{{url_for('delete_user',id=users.id)}}"><span class="label label-danger"><i class="fa-solid fa-eraser"></i> Excluir</span></a></td>
+                    <td>{{users.Id}}</td>
+                    <td>{{users.Email}}</td>
+                    <td>{{users.Name}}</td>
+                    <td>{{users.Modified.strftime('%d/%m/%Y')}}</td>
+                    <td><a href="/update/user/{{users.Id}}"><span class="label label-success"><i class="fa-solid fa-pencil"></i> Alterar</span></a></td>
+                    <td><a href="{{url_for('delete_user',Id=users.Id)}}"><span class="label label-danger"><i class="fa-solid fa-eraser"></i> Excluir</span></a></td>
                   </tr>
                 {% endfor %}
                            

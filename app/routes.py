@@ -53,10 +53,10 @@ def init_app(app):
             
         return render_template("user/form/user-form.html")
     
-    @app.route("/update/user/<int:id>", methods=["GET", "POST"])
+    @app.route("/update/user/<int:Id>", methods=["GET", "POST"])
     @login_required
-    def update_user(id):
-        user = User.query.get_or_404(id)
+    def update_user(Id):
+        user = User.query.get_or_404(Id)
         if request.method == "POST":
             user.nome = request.form["nome"]
             user.email = request.form["email"]        
@@ -67,10 +67,10 @@ def init_app(app):
             return redirect(url_for("user_list"))
         return render_template("user/form/user-update-form.html", user=user) 
     
-    @app.route("/delete/user/<int:id>")
+    @app.route("/delete/user/<int:Id>")
     @login_required
-    def delete_user(id):
-        userToDelete = User.query.get(id)
+    def delete_user(Id):
+        userToDelete = User.query.get(Id)
         if userToDelete:
             db.session.delete(userToDelete)
             db.session.commit()
@@ -80,45 +80,48 @@ def init_app(app):
     @app.route("/initiative/list")
     @login_required
     def initiative_list():
-        iniciativas = Initiative.query.order_by(Initiative.id).all()
+        iniciativas = Initiative.query.order_by(Initiative.Id).all()
         return render_template("initiative/list/initiative-list.html", iniciativas=iniciativas)
     
-    @app.route("/intiative/register", methods=["GET", "POST"])
+    @app.route("/initiative/register", methods=["GET", "POST"])
     @login_required
     def initiative_register():
         if request.method == "POST":
             nome = request.form["nome"]
+            nome_gerente_projeto = request.form["nome_gerente_projeto"]
             data_inicio = request.form["data_inicio"]
             data_fim = request.form["data_fim"]
             
-            new_iniciativa = Initiative(nome=nome, data_inicio=data_inicio, data_fim=data_fim)
-            db.session.add(new_iniciativa)
+            new_initiative = Initiative(Name=nome, ProjectManagerName=nome_gerente_projeto, PlannedStartDate=data_inicio, PlannedEndDate=data_fim)
+            db.session.add(new_initiative)
             db.session.commit()
             
-            flash("Initiative created successfully!")
+            flash("Iniciativa criada com sucesso!")
             return redirect(url_for("initiative_list"))
         
         return render_template("initiative/form/initiative-form.html")
     
-    @app.route("/update/initiative/<int:id>", methods=["GET", "POST"])
+    @app.route("/update/initiative/<int:Id>", methods=["GET", "POST"])
     @login_required
-    def update_initiative(id):
-        initiative = Initiative.query.get_or_404(id)
+    def update_initiative(Id):
+        initiative = Initiative.query.get_or_404(Id)
         if request.method == "POST":
-            initiative.nome = request.form["nome"]
-            initiative.data_inicio = request.form["data_inicio"]
-            initiative.data_fim = request.form["data_fim"]
+            initiative.Name = request.form["nome"]
+            initiative.PlannedStartDate = request.form["data_inicio"]
+            initiative.PlannedEndDate = request.form["data_fim"]
+            initiative.RealStartDate = request.form["data_inicio_real"]
+            initiative.RealEndDate = request.form["data_fim_real"]
             
             db.session.commit()
-            flash("Initiative updated successfully!")
+            flash("Iniciativa atualizada com sucesso!")
             return redirect(url_for("initiative_list"))
         
         return render_template("initiative/form/initiative-update-form.html", initiative=initiative)
    
-    @app.route("/delete/initiative/<int:id>")
+    @app.route("/delete/initiative/<int:Id>")
     @login_required
-    def delete_initiative(id):
-        initativeToDelete = Initiative.query.get(id)
+    def delete_initiative(Id):
+        initativeToDelete = Initiative.query.get(Id)
         if initativeToDelete:
             db.session.delete(initativeToDelete)
             db.session.commit()

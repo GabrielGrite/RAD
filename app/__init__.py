@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
@@ -22,7 +22,3 @@ def create_app():
     routes.init_app(app)
 
     return app
-
-
-
-

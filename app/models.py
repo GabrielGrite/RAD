@@ -3,29 +3,26 @@ from flask_login import UserMixin
 
 @login_manager.user_loader
 def current_user(user_id):
-    return usuario.query.get(user_id)
+    return User.query.get(user_id)
 
-class usuario(db.Model, UserMixin):
-    __tablename__ = "usuarios"
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(255), nullable=False, unique=True)
-    nome = db.Column(db.String(255), nullable=False)
-    senha = db.Column(db.String(255), nullable=False)
-    data = db.Column(db.DateTime,  default=db.func.current_timestamp(), onupdate=db.func.current_timestamp()) 
+class User(db.Model, UserMixin):
+    __tablename__ = "User"
+    Id = db.Column(db.Integer, primary_key=True)
+    Email = db.Column(db.String(255), nullable=False, unique=True)
+    Name = db.Column(db.String(255), nullable=False)
+    Password = db.Column(db.String(255), nullable=False)
+    Modified = db.Column(db.DateTime,  default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
 
-class produto(db.Model):
-    __tablename__ = "produto"
-    id = db.Column(db.Integer, primary_key=True)    
-    nome = db.Column(db.String(255), nullable=True)
-    tipo = db.Column(db.String(255), nullable=True)
-    quantidade = db.Column(db.Integer, nullable=True)
-    data = db.Column(db.DateTime,  default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
+    def get_id(self):
+        return self.Id
 
-class iniciativa(db.Model):
-    __tablename__ = "iniciativa"
-    id = db.Column(db.Integer, primary_key=True)    
-    nome = db.Column(db.String(255), nullable=True)
-    data_inicio = db.Column(db.DateTime,  default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())        
-    data_fim = db.Column(db.DateTime,  default=db.func.current_timestamp(), onupdate=db.func.current_timestamp()) 
-    usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'))
-    usuario = db.relationship("usuario", backref= db.backref("usuarios", uselist=False))
+class Initiative(db.Model):
+    __tablename__ = "Initiative"
+    Id = db.Column(db.Integer, primary_key=True)    
+    Name = db.Column(db.String(255), nullable=True)
+    ProjectManagerName = db.Column(db.String(255), nullable=True)
+    PlannedStartDate = db.Column(db.DateTime, nullable=False)   
+    PlannedEndDate = db.Column(db.DateTime, nullable=False)
+    RealStartDate = db.Column(db.DateTime, nullable=True)   
+    RealEndDate = db.Column(db.DateTime, nullable=True)   
+    Modified = db.Column(db.DateTime,  default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
