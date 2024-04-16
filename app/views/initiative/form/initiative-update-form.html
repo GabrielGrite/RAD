@@ -10,17 +10,21 @@
         </div>
         <form class="row g-3" action="{{url_for('update_initiative', Id=initiative.Id)}}" method="POST">
           <div class="box-body">
-            <div class="col-md-12">
-              <label class="form-label">Lider do projeto</label>
+            <div class="col-md-6">
+              <label class="form-label">Nome do projeto</label>
               <input class="form-control" type="text" name="nome" id="nome" value="{{initiative.Name}}">
             </div>
             <div class="col-md-6">
-              <label class="form-label">Data de Início</label>
+              <label class="form-label">Lider do projeto</label>
+              <input class="form-control" type="text" name="nome_gerente_projeto" id="nome_gerente_projeto" value="{{initiative.ProjectManagerName}}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Data de Início - Planejado</label>
               <input class="form-control" type="datetime-local" name="data_inicio"
                 value="{{initiative.PlannedStartDate.strftime('%Y-%m-%dT%H:%M')}}">
             </div>
             <div class="col-md-6">
-              <label class="form-label">Data de Fim</label>
+              <label class="form-label">Data de Fim - Planejado</label>
               <input class="form-control" type="datetime-local" name="data_fim"
                 value="{{initiative.PlannedEndDate.strftime('%Y-%m-%dT%H:%M')}}">
             </div>
@@ -43,6 +47,50 @@
           </div>
         </form>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Comentarios</h3>
+        </div>
+        <div class="box-body">
+          <ul class="list-group">
+            {% for comentario in comments %}
+            <li class="list-group-item">
+              <div style="display:flex; justify-content:space-between;">
+                {{ comentario.Text }}
+                <a href="{{ url_for('delete_comment', Id=comentario.Id) }}">
+                  <i class="fa-solid fa-trash" style="color: red;"></i> 
+                </a>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <form class="row g-3" action="{{url_for('comment_register', Id=initiative.Id)}}" method="POST">
+          <div class="box-body">
+            <div class="col-md-12">
+              <label class="form-label">Comentários</label>
+              <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
+            </div>
+            <div class="col-md-12">
+              <br>
+            </div>
+            <div class="col-md-12">
+              <button class="btn btn-primary" type="submit">Adicionar</button>
+            </div>
+          </div>
+        </form>
+        
+      </div>
+
     </div>
   </div>
 </section>

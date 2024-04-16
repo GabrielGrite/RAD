@@ -18,8 +18,8 @@ def init_app(app):
                 flash("Incorrect email, please check!")
                 return redirect(url_for("logout"))
             
-            # elif not check_password_hash(user.senha, form.senha.data):
-            #     flash("Incorrect password, please check")
+            elif not check_password_hash(user.senha, form.senha.data):
+                flash("Incorrect password, please check")
             
             login_user(user, remember=form.remember.data, duration=timedelta(days=7))
             return redirect(url_for("user_list"))
@@ -105,8 +105,10 @@ def init_app(app):
     @login_required
     def update_initiative(Id):
         initiative = Initiative.query.get_or_404(Id)
+        comments = Comment.query.where(Comment.FK_Initiative_Id == Id).all()
         if request.method == "POST":
             initiative.Name = request.form["nome"]
+            initiative.ProjectManagerName = request.form["nome_gerente_projeto"]
             initiative.PlannedStartDate = request.form["data_inicio"]
             initiative.PlannedEndDate = request.form["data_fim"]
             initiative.RealStartDate = request.form["data_inicio_real"]
@@ -116,7 +118,7 @@ def init_app(app):
             flash("Iniciativa atualizada com sucesso!")
             return redirect(url_for("initiative_list"))
         
-        return render_template("initiative/form/initiative-update-form.html", initiative=initiative)
+        return render_template("initiative/form/initiative-update-form.html", initiative=initiative, comments=comments)
    
     @app.route("/delete/initiative/<int:Id>")
     @login_required
@@ -127,3 +129,32 @@ def init_app(app):
             db.session.commit()
             flash("Initiative deleted successfully!")
         return redirect(url_for("initiative_list"))
+
+    @app.route("/comment/register/<int:Id>", methods=["GET", "POST"])
+    @login_required
+    def comment_register(Id):
+        initiative = Initiative.query.get_or_404(Id)
+        if request.method == "POST":
+
+            text = request.form["comment"]
+            
+            new_comment = Comment(Text=text, FK_Initiative_Id=Id, initiative=initiative)
+            print(new_comment)
+            db.session.add(new_comment)
+            db.session.commit()
+            
+            return redirect(f"/update/initiative/{Id}")
+        
+        return redirect(f"/update/initiative/{Id}")
+    
+    @app.route("/delete/comment/<int:Id>")
+    @login_required
+    def delete_comment(Id):
+        commentToDelete = Comment.query.get(Id)
+        if commentToDelete:
+            db.session.delete(commentToDelete)
+            db.session.commit()
+            flash("Comment deleted successfully!")
+        return redirect(url_for("initiative_list"))
+    
+    

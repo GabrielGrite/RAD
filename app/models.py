@@ -26,3 +26,10 @@ class Initiative(db.Model):
     RealStartDate = db.Column(db.DateTime, nullable=True)   
     RealEndDate = db.Column(db.DateTime, nullable=True)   
     Modified = db.Column(db.DateTime,  default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
+
+class Comment(db.Model):
+    __tablename__ = "Comment"
+    Id = db.Column(db.Integer, primary_key=True)
+    Text = db.Column(db.String(255), nullable=False)
+    FK_Initiative_Id = db.Column(db.Integer, db.ForeignKey('Initiative.Id'), nullable=False)
+    initiative = db.relationship('Initiative', backref=db.backref('comments', lazy=True))
