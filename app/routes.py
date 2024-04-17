@@ -18,7 +18,7 @@ def init_app(app):
                 flash("Incorrect email, please check!")
                 return redirect(url_for("logout"))
             
-            elif not check_password_hash(user.senha, form.senha.data):
+            elif not check_password_hash(user.Password, form.senha.data):
                 flash("Incorrect password, please check")
             
             login_user(user, remember=form.remember.data, duration=timedelta(days=7))
