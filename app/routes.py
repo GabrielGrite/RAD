@@ -91,8 +91,16 @@ def init_app(app):
             nome_gerente_projeto = request.form["nome_gerente_projeto"]
             data_inicio = request.form["data_inicio"]
             data_fim = request.form["data_fim"]
+            status = request.form.get("status")
             
-            new_initiative = Initiative(Name=nome, ProjectManagerName=nome_gerente_projeto, PlannedStartDate=data_inicio, PlannedEndDate=data_fim)
+            new_initiative = Initiative(
+                Name=nome,
+                ProjectManagerName=nome_gerente_projeto,
+                PlannedStartDate=data_inicio, 
+                PlannedEndDate=data_fim,
+                Status=status
+            )
+
             db.session.add(new_initiative)
             db.session.commit()
             
@@ -113,6 +121,7 @@ def init_app(app):
             initiative.PlannedEndDate = request.form["data_fim"]
             initiative.RealStartDate = request.form["data_inicio_real"]
             initiative.RealEndDate = request.form["data_fim_real"]
+            initiative.Status = request.form.get("status")
             
             db.session.commit()
             flash("Iniciativa atualizada com sucesso!")

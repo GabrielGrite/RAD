@@ -24,7 +24,8 @@ class Initiative(db.Model):
     PlannedStartDate = db.Column(db.DateTime, nullable=False)   
     PlannedEndDate = db.Column(db.DateTime, nullable=False)
     RealStartDate = db.Column(db.DateTime, nullable=True)   
-    RealEndDate = db.Column(db.DateTime, nullable=True)   
+    RealEndDate = db.Column(db.DateTime, nullable=True)
+    Status = db.Column(db.String(255), nullable=False)
     Modified = db.Column(db.DateTime,  default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
 
 class Comment(db.Model):
